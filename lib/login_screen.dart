@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(100),
+            padding: EdgeInsets.all(100),
             child: Column(
               children: [
                 Container(
@@ -92,13 +92,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-          ElevatedButton(
-            child: Text(
-              'Log in',
-            ),
-            onPressed: () {
-              print('Pressed');
-            },
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  child: Text(
+                    'Log in',
+                  ),
+                  onPressed: () {
+                    print('Pressed');
+                  },
+                ),
+              ),
+            ],
           )
         ],
       ),

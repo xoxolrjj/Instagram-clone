@@ -32,8 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(shape: BoxShape.circle),
-                  width: 100.0,
-                  height: 120.0,
+                  width: 80.0,
+                  height: 100.0,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     placeholder: loader,
@@ -78,6 +78,28 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.all(1.0),
+            child: Column(
+              children: [
+                Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            child: Text(
+              'Log in',
+            ),
+            onPressed: () {
+              print('Pressed');
+            },
+          )
         ],
       ),
     );

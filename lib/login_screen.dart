@@ -7,6 +7,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_2/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -100,7 +101,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     'Log in',
                   ),
                   onPressed: () {
-                    print('Pressed');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyHomePage(
+                          title: "Home",
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

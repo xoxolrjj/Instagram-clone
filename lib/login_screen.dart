@@ -17,104 +17,141 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   Widget loader(BuildContext context, String s) {
     return CupertinoActivityIndicator();
   }
 
+  static ElevatedButtonThemeData defaultStyle = ElevatedButtonThemeData(
+    style: ButtonStyle(
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(2),
+        ),
+      ),
+      backgroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) return Colors.grey;
+        return Colors.blue;
+      }),
+      overlayColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) return Colors.transparent;
+        return Colors.black12;
+      }),
+      foregroundColor: MaterialStateProperty.all(
+        Colors.white,
+      ),
+      shadowColor: MaterialStateProperty.all(
+        Colors.blue.withOpacity(0.40),
+      ),
+      elevation: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.pressed)) {
+          return 6;
+        }
+        return 12;
+      }),
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(100),
-            child: Column(
-              children: [
-                Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  width: 80.0,
-                  height: 100.0,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    placeholder: loader,
-                    imageUrl:
-                        'https://cdn-icons-png.flaticon.com/512/124/124021.png',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(100),
+              child: Column(
+                children: [
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    width: 80.0,
+                    height: 100.0,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      placeholder: loader,
+                      imageUrl:
+                          'https://cdn-icons-png.flaticon.com/512/124/124021.png',
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Column(
-              children: [
-                Text(
-                  'Log in to Twitter',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'User Name',
-                hintText: 'Enter valid mail id as abc@gmail.com',
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-                hintText: 'Enter your secure password',
+            Padding(
+              padding: EdgeInsets.all(1.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Log in to Twitter',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Column(
-              children: [
-                Text(
-                  'Forgot Password',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 15,
-                  ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'User Name',
+                  hintText: 'Enter valid mail id as abc@gmail.com',
                 ),
-              ],
+              ),
             ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  child: Text(
-                    'Log in',
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  hintText: 'Enter your secure password',
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(1.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Forgot Password',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyHomePage(
-                          title: "Home",
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Theme(
+                    data: ThemeData(elevatedButtonTheme: defaultStyle),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        child: Text(
+                          'Log in',
                         ),
+                        onPressed: () {
+                          if (emailController.text == "missy123" &&
+                              passwordController.text == "12345") {
+                            Navigator.popAndPushNamed(context, "/HomePage");
+                          }
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
